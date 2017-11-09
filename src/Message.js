@@ -7,6 +7,7 @@ class Message extends Component {
     this.handleThumbsUp =this.handleThumbsUp.bind(this)
     this.handleThumbsDown =this.handleThumbsDown.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
+    this.getDate = this.getDate.bind(this)
   }
 
   handleThumbsUp(){
@@ -21,11 +22,17 @@ class Message extends Component {
     this.props.onDelete(this.props.id)
 
   }
+  getDate(){
+    const date = new Date().toLocaleTimeString()
+
+  }
+
 
   render() {
 
     return (<li>
       {this.props.text}
+      <i className="fa fa-date  pull-right" id="display">{this.props.date}</i>
       <i className="fa fa-trash pull-right delete" onClick={this.handleDelete}></i>
       <i className="fa fa-thumbs-down pull-right" onClick={this.handleThumbsDown}></i>
       <i className="fa fa-thumbs-up pull-right" onClick={this.handleThumbsUp}></i>

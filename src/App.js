@@ -4,6 +4,7 @@ import './App.css';
 import Header from './Header'
 import Message from './Message'
 import PostMessage from './postMessage'
+import Search from './Search'
 import uuid from 'uuid';
 
 class App extends Component {
@@ -14,28 +15,33 @@ class App extends Component {
         {
           id: uuid.v4(),
           text: "hello",
+          date:"1510190415964",
           likes: 0
         }, {
           id: uuid.v4(),
           text: "Apple",
+          date:"1510190415965",
           likes: 1
         }, {
           id: uuid.v4(),
           text: "Orange",
+          date:"1510190415969",
           likes: 2
         }, {
           id: uuid.v4(),
+          date:"1510190415967",
           text: "Fruits xxxxxxxx",
           likes: 3
         }
       ]
     }
-    //why ?
+    //
     this.handleLike = this.handleLike.bind(this)
     this.handleDisLike = this.handleDisLike.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSort = this.handleSort.bind(this)
+    this.handleOrder = this.handleOrder.bind(this)
   }
   //repsent argument pass in
 
@@ -45,6 +51,7 @@ class App extends Component {
     const messages = {
       id: uuid.v4(),
       text: text,
+      date: new Date().getTime(),
       likes: 0
     }
 
@@ -52,8 +59,9 @@ class App extends Component {
 
     this.setState({messages: this.state.messages})
 
-    console.log(messages)
   }
+
+
 
   handleLike(id) {
     const message = this.state.messages.find(message => message.id === id)
@@ -80,7 +88,6 @@ class App extends Component {
 // using sorting method provide by Native JS
     const messages = this.state.messages.sort((a, b) => {
       if (a.likes > b.likes) {
-        this.setState({ title: "New title" });
 
         return a.likes - b.likes
 
@@ -94,7 +101,22 @@ class App extends Component {
 
   }
 
-  handleOrder() {}
+
+//
+  handleOrder() {
+  const messages = this.state.messages.sort((a, b) =>{
+    if (a.date > b.date) {
+      return a.date - b.date
+
+    } else {
+      return b.date - a.date
+    }
+
+  })
+  this.setState({messages:this.state.messages})
+  }
+
+
 
   render() {
     //return JSX
@@ -109,18 +131,9 @@ class App extends Component {
           </div>
         </div>
 
-        <hr/> {/*
-          <div clasName="row">
-
-            <form class="navbar-form navbar-left pull-right">
-                   <div class="form-group">
-                     <input type="text" class="form-control" placeholder="Search" />
-                   </div>
-                   <button type="submit" class="btn btn-default">Submit</button>
-              </form>
-
-          </div> */
-        }
+        <hr/>
+  <Search />
+  <hr/>
 
         <div className="panel-group">
           <div className="panel panel-default">
@@ -144,6 +157,11 @@ class App extends Component {
                     text = {
                       message.text
                     }
+
+                    date ={
+                      message.date
+                    }
+
                     likes = {
                       message.likes
                     }

@@ -19,12 +19,7 @@ class PostMessage extends Component {
   }
 
   handleSubmit(e) {
-    // prevent the default link behavior of opening a new page, you can write
-    //
-    // alert('A name was submitted: ' + this.state.text);
     this.props.onSubmit(this.state.text)
-    // e.preventDefault()
-    // this.props.onText(this.props.id)
 
   }
 
